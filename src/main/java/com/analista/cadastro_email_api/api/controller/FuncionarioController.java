@@ -1,4 +1,5 @@
 package com.analista.cadastro_email_api.api.controller;
+import com.analista.cadastro_email_api.domain.exception.FuncionarioExcepion;
 import com.analista.cadastro_email_api.domain.model.Funcionario;
 import com.analista.cadastro_email_api.domain.model.FuncionarioId;
 import com.analista.cadastro_email_api.domain.repository.FuncionarioRepository;
@@ -6,7 +7,6 @@ import com.analista.cadastro_email_api.domain.service.RegistroFuncionarioService
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RequestMapping("/funcionarios")
@@ -44,6 +44,10 @@ public class FuncionarioController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @ExceptionHandler(FuncionarioExcepion.class)
+    public ResponseEntity<String> capturar (FuncionarioExcepion e){
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     }
