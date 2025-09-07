@@ -1,5 +1,5 @@
 package com.analista.cadastro_email_api.api.controller;
-import com.analista.cadastro_email_api.domain.exception.FuncionarioExcepion;
+import com.analista.cadastro_email_api.api.model.FuncionarioModel;
 import com.analista.cadastro_email_api.domain.model.Funcionario;
 import com.analista.cadastro_email_api.domain.model.FuncionarioId;
 import com.analista.cadastro_email_api.domain.repository.FuncionarioRepository;
@@ -23,11 +23,15 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{empresa}/{filial}/{matricula}")
-    public ResponseEntity<Funcionario> buscar(@PathVariable String empresa, @PathVariable String filial, @PathVariable String matricula) {
-
+    public ResponseEntity<FuncionarioModel> buscar(@PathVariable String empresa, @PathVariable String filial, @PathVariable String matricula) {
         FuncionarioId funcionarioId = new FuncionarioId(empresa, filial, matricula);
-        return funcionarioRepository.findById(funcionarioId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-
+        return funcionarioRepository.findById(funcionarioId).map(funcionario -> {
+            var funcionarioModel = new FuncionarioModel();
+            funcionarioModel.setNome(funcionario.getNome());
+            funcionarioModel.setCargo(funcionario.getCargo());
+            funcionarioModel.setEmail(funcionario.getEmail());
+            return ResponseEntity.ok(funcionarioModel);
+        }).orElse(ResponseEntity.notFound().build());
     }
 
 
@@ -45,9 +49,4 @@ public class FuncionarioController {
             return ResponseEntity.notFound().build();
         }
     }
-    @ExceptionHandler(FuncionarioExcepion.class)
-    public ResponseEntity<String> capturar (FuncionarioExcepion e){
-        return ResponseEntity.badRequest().body(e.getMessage());
-    }
-
-    }
+}

@@ -3,6 +3,7 @@ package com.analista.cadastro_email_api.domain.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -20,6 +21,7 @@ public class Funcionario {
     @JsonProperty(access = Access.READ_ONLY)
     @EqualsAndHashCode.Include
     @EmbeddedId
+    @Valid
     private FuncionarioId id;
 
     @JsonProperty(access = Access.READ_ONLY)
