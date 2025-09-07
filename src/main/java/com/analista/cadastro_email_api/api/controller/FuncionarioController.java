@@ -6,6 +6,7 @@ import com.analista.cadastro_email_api.domain.repository.FuncionarioRepository;
 import com.analista.cadastro_email_api.domain.service.RegistroFuncionarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -16,6 +17,7 @@ public class FuncionarioController {
 
     private final RegistroFuncionarioService registroFuncionarioService;
     private final FuncionarioRepository funcionarioRepository;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     public List<Funcionario> listar() {
@@ -25,14 +27,12 @@ public class FuncionarioController {
     @GetMapping("/{empresa}/{filial}/{matricula}")
     public ResponseEntity<FuncionarioModel> buscar(@PathVariable String empresa, @PathVariable String filial, @PathVariable String matricula) {
         FuncionarioId funcionarioId = new FuncionarioId(empresa, filial, matricula);
-        return funcionarioRepository.findById(funcionarioId).map(funcionario -> {
-            var funcionarioModel = new FuncionarioModel();
-            funcionarioModel.setNome(funcionario.getNome());
-            funcionarioModel.setCargo(funcionario.getCargo());
-            funcionarioModel.setEmail(funcionario.getEmail());
-            return ResponseEntity.ok(funcionarioModel);
-        }).orElse(ResponseEntity.notFound().build());
+        return funcionarioRepository.findById(funcionarioId).map(funcionario ->
+            modelMapper.map(funcionario, FuncionarioModel.class)).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+
     }
+
 
 
     @PatchMapping("/{empresa}/{filial}/{matricula}/email")
