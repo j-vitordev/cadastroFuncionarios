@@ -13,4 +13,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
+    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
+    public ResponseEntity<Object> capturarConstraintViolation(jakarta.validation.ConstraintViolationException e) {
+        var mensagens = e.getConstraintViolations().stream()
+                .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                .toList();
+
+        return ResponseEntity.badRequest().body(mensagens);
+    }
+
+
 }
