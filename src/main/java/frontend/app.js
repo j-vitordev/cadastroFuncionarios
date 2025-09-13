@@ -83,6 +83,6 @@ document.getElementById("salvarEmail").addEventListener("click", async () => {
         modalEmail.hide();
         listarFuncionarios();
     } else {
-        alert("Erro ao atualizar email. Verifique se é válido e termina com @empresa.com");
+        alert("Erro ao atualizar email. Verifique se o email está preenchido e termina com @empresa.com");
     }
 });

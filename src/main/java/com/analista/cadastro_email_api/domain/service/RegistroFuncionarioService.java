@@ -28,7 +28,7 @@ public class RegistroFuncionarioService {
         }
 
         return funcionarioRepository.findById(funcionarioId)
-                .map(funcionario ->  {
+                .map(funcionario -> {
                     funcionario.setEmail(novoEmail.trim().replace("\"", ""));
                     funcionarioRepository.save(funcionario);
                     return true;
