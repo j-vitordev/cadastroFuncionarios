@@ -3,6 +3,7 @@ pom.xml
 mvnw
 mvnw.cmd
 .mvn/
+.gitattributes
 
 # Build
 target/

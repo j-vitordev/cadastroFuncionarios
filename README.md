@@ -1,5 +1,5 @@
-📌 Cadastro Email API
-📖 Sobre o projeto
+# 📌 Cadastro Email API
+## 📖 Sobre o projeto
 
 O Cadastro Email API é uma aplicação desenvolvida em Java + Spring Boot com o objetivo de disponibilizar uma view específica para atualização do campo e-mail no cadastro de funcionários.
 
@@ -9,7 +9,7 @@ Essa API garante segurança e desacoplamento, permitindo que apenas os dados nec
 
 
 
-🚀 Funcionalidades
+# 🚀 Funcionalidades
 
 ✅ Atualização apenas do campo de e-mail de funcionários.
 
@@ -24,7 +24,7 @@ Essa API garante segurança e desacoplamento, permitindo que apenas os dados nec
 
 
 
-🏗️ Arquitetura
+# 🏗️ Arquitetura
 
 Model/Entity (Funcionario) → Representa a tabela no banco de dados.
 
@@ -45,7 +45,7 @@ ExceptionHandler → Camada global de tratamento de erros e mensagens personaliz
 
 
 
-📢 Motivação final
+# 📢 Motivação final
 
 Esse projeto mostra como boas práticas de arquitetura em APIs REST ajudam a:
 
